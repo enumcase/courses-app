@@ -9,16 +9,26 @@ import SwiftUI
 
 struct CoursesView: View {
     @State private var isShowingCourseItem = false
+    @Namespace private var namespace
+    
     var body: some View {
         ZStack {
             CourseItem()
+                .matchedGeometryEffect(id: "Card", in: namespace, isSource: !isShowingCourseItem)
                 .frame(width: 335, height: 250)
-            VStack {
-                if isShowingCourseItem {
+            if isShowingCourseItem {
+                ScrollView {
                     CourseItem()
-                        .transition(.move(edge: .trailing))
-                        .ignoresSafeArea(.all)
+                        .matchedGeometryEffect(id: "Card", in: namespace)
+                        .frame(height: 300)
+                    VStack {
+                        ForEach(0 ..< 20) { item in
+                            CourseRow()
+                        }
+                    }
                 }
+                .transition(.opacity)
+                .ignoresSafeArea(.all)
             }
         }
         .onTapGesture {
@@ -26,7 +36,6 @@ struct CoursesView: View {
                 isShowingCourseItem.toggle()
             }
         }
-//      .animation(.spring())
     }
 }
 
