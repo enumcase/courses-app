@@ -1,13 +1,13 @@
 //
-//  ContentView.swift
-//  Shared
+//  CourseItem.swift
+//  CoursesApp
 //
-//  Created by Margulan Daribayev on 07.05.2021.
+//  Created by Margulan Daribayev on 10.05.2021.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct CourseItem: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Spacer()
@@ -32,10 +32,8 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct CourseItem_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            ContentView()
-        }
+        CourseItem()
     }
 }
