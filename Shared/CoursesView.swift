@@ -8,22 +8,25 @@
 import SwiftUI
 
 struct CoursesView: View {
-    @ViewBuilder
+    @State private var isShowingCourseItem = false
     var body: some View {
-        #if os(iOS)
-        content
-            .listStyle(InsetGroupedListStyle())
-        #else
-        content
-            .frame(minWidth: 800, minHeight: 600)
-        #endif
-    }
-    
-    var content: some View {
-        List(0 ..< 20) { item in
-            CourseRow()
+        ZStack {
+            CourseItem()
+                .frame(width: 335, height: 250)
+            VStack {
+                if isShowingCourseItem {
+                    CourseItem()
+                        .transition(.move(edge: .trailing))
+                        .ignoresSafeArea(.all)
+                }
+            }
         }
-        .navigationTitle("Courses")
+        .onTapGesture {
+            withAnimation(.spring()) {
+                isShowingCourseItem.toggle()
+            }
+        }
+//      .animation(.spring())
     }
 }
 
