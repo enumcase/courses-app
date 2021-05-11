@@ -23,6 +23,8 @@
 		7492255826492B7E0013F111 /* CourseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7492255626492B7E0013F111 /* CourseItem.swift */; };
 		7492256226492CFB0013F111 /* CourseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7492256126492CFB0013F111 /* CourseList.swift */; };
 		7492256326492CFB0013F111 /* CourseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7492256126492CFB0013F111 /* CourseList.swift */; };
+		74C919DD264A5FCF00E9FBB5 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C919DC264A5FCF00E9FBB5 /* Course.swift */; };
+		74C919DE264A5FCF00E9FBB5 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C919DC264A5FCF00E9FBB5 /* Course.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,7 @@
 		744A7C0726456387007B433E /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		7492255626492B7E0013F111 /* CourseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseItem.swift; sourceTree = "<group>"; };
 		7492256126492CFB0013F111 /* CourseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseList.swift; sourceTree = "<group>"; };
+		74C919DC264A5FCF00E9FBB5 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +77,7 @@
 			children = (
 				7492255E26492C820013F111 /* Items */,
 				7492255B26492C6B0013F111 /* Navigation */,
+				74C919E1264A63E400E9FBB5 /* Model */,
 				744A7BDA26455B54007B433E /* CoursesAppApp.swift */,
 				744A7BDC26455B57007B433E /* Assets.xcassets */,
 				744A7C02264562A9007B433E /* CoursesView.swift */,
@@ -124,6 +128,14 @@
 				744A7BFD264560A6007B433E /* CourseRow.swift */,
 			);
 			path = Items;
+			sourceTree = "<group>";
+		};
+		74C919E1264A63E400E9FBB5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				74C919DC264A5FCF00E9FBB5 /* Course.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,6 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74C919DD264A5FCF00E9FBB5 /* Course.swift in Sources */,
 				744A7C0826456387007B433E /* Sidebar.swift in Sources */,
 				7492255726492B7E0013F111 /* CourseItem.swift in Sources */,
 				744A7BEF26455B57007B433E /* ContentView.swift in Sources */,
@@ -237,6 +250,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74C919DE264A5FCF00E9FBB5 /* Course.swift in Sources */,
 				744A7C0926456387007B433E /* Sidebar.swift in Sources */,
 				7492255826492B7E0013F111 /* CourseItem.swift in Sources */,
 				744A7BF026455B57007B433E /* ContentView.swift in Sources */,

@@ -11,24 +11,44 @@ struct CoursesView: View {
     @State private var isShowingCourseItem = false
     @Namespace private var namespace
     
+    @State private var selectedCourse: Course? = nil
+    @State private var isDisabled = false
+    
     var body: some View {
         ZStack {
             ScrollView {
                 VStack(spacing: 20) {
-                    CourseItem()
-                        .matchedGeometryEffect(id: "Card", in: namespace, isSource: !isShowingCourseItem)
-                        .frame(width: 335, height: 250)
-                    
-                    CourseItem()
-                        .frame(width: 335, height: 250)
+                    ForEach(courses) { course in
+                        CourseItem(course: course)
+                            .matchedGeometryEffect(id: course.id, in: namespace, isSource: !isShowingCourseItem)
+                            .frame(width: 335, height: 250)
+                            .onTapGesture {
+                                withAnimation(.spring()) {
+                                    isShowingCourseItem.toggle()
+                                    selectedCourse = course
+                                    isDisabled = true
+                                }
+                            }
+                            .disabled(isDisabled)
+                    }
                 }
                 .frame(maxWidth: .infinity)
             }
-            if isShowingCourseItem {
+            
+            if selectedCourse != nil {
                 ScrollView {
-                    CourseItem()
-                        .matchedGeometryEffect(id: "Card", in: namespace)
+                    CourseItem(course: selectedCourse!)
+                        .matchedGeometryEffect(id: selectedCourse!.id, in: namespace)
                         .frame(height: 300)
+                        .onTapGesture {
+                            withAnimation(.spring()) {
+                                isShowingCourseItem.toggle()
+                                selectedCourse = nil
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    isDisabled = false
+                                }
+                            }
+                        }
                     VStack {
                         ForEach(0 ..< 20) { item in
                             CourseRow()
@@ -47,11 +67,6 @@ struct CoursesView: View {
                     )
                 )
                 .edgesIgnoringSafeArea(.all)
-            }
-        }
-        .onTapGesture {
-            withAnimation(.spring()) {
-                isShowingCourseItem.toggle()
             }
         }
     }
