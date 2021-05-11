@@ -8,32 +8,34 @@
 import SwiftUI
 
 struct CourseItem: View {
+    let course: Course
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Spacer()
             HStack {
                 Spacer()
-                Image("Illustration 1")
+                Image(course.image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                 Spacer()
             }
-            Text("SwiftUI for iOS 14")
+            Text(course.title)
                 .fontWeight(.bold)
                 .foregroundColor(.white)
-            Text("20 Sections")
+            Text(course.subtitle)
                 .font(.footnote)
                 .foregroundColor(.white)
         }
         .padding()
-        .background(Color.blue)
-        .cornerRadius(20)
-        .shadow(radius: 10)
+        .background(course.color)
+        .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+        .shadow(color: course.color.opacity(0.3), radius: 20, x: 0, y: 10)
     }
 }
 
 struct CourseItem_Previews: PreviewProvider {
     static var previews: some View {
-        CourseItem()
+        CourseItem(course: courses[0])
     }
 }
