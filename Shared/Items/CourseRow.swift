@@ -12,7 +12,7 @@ struct CourseRow: View {
     
     var body: some View {
         HStack(alignment: .top) {
-            Image(systemName: item.logo)
+            Image(item.logo)
                 .renderingMode(.original)
                 .frame(width: 48, height: 48)
                 .imageScale(.medium)
@@ -28,7 +28,7 @@ struct CourseRow: View {
             }
             Spacer()
         }
-        .padding()
+        .padding(.all, 12)
     }
 }
 
