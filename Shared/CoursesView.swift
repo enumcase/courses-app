@@ -17,45 +17,57 @@ struct CoursesView: View {
     var body: some View {
         ZStack {
             ScrollView {
-                VStack(spacing: 20) {
+                LazyVGrid(
+                    columns: [
+                        GridItem(.adaptive(minimum: 160), spacing: 16)
+                    ],
+                    spacing: 16
+                ) {
                     ForEach(courses) { course in
-                        CourseItem(course: course)
-                            .matchedGeometryEffect(id: course.id, in: namespace, isSource: !isShowingCourseItem)
-                            .frame(width: 335, height: 250)
-                            .onTapGesture {
-                                withAnimation(.spring()) {
-                                    isShowingCourseItem.toggle()
-                                    selectedCourse = course
-                                    isDisabled = true
+                        VStack {
+                            CourseItem(course: course)
+                                .matchedGeometryEffect(id: course.id, in: namespace, isSource: !isShowingCourseItem)
+                                .frame(height: 200)
+                                .onTapGesture {
+                                    withAnimation(.spring()) {
+                                        isShowingCourseItem.toggle()
+                                        selectedCourse = course
+                                        isDisabled = true
+                                    }
                                 }
-                            }
-                            .disabled(isDisabled)
+                                .disabled(isDisabled)
+                        }
+                        .matchedGeometryEffect(id: "container\(course.id)", in: namespace, isSource: !isShowingCourseItem)
                     }
                 }
+                .padding(16)
                 .frame(maxWidth: .infinity)
             }
             
             if selectedCourse != nil {
-                ScrollView {
-                    CourseItem(course: selectedCourse!)
-                        .matchedGeometryEffect(id: selectedCourse!.id, in: namespace)
-                        .frame(height: 300)
-                        .onTapGesture {
-                            withAnimation(.spring()) {
-                                isShowingCourseItem.toggle()
-                                selectedCourse = nil
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    isDisabled = false
+                VStack {
+                    ScrollView {
+                        CourseItem(course: selectedCourse!)
+                            .matchedGeometryEffect(id: selectedCourse!.id, in: namespace)
+                            .frame(height: 300)
+                            .onTapGesture {
+                                withAnimation(.spring()) {
+                                    isShowingCourseItem.toggle()
+                                    selectedCourse = nil
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        isDisabled = false
+                                    }
                                 }
                             }
-                        }
-                    VStack {
-                        ForEach(0 ..< 20) { item in
-                            CourseRow()
+                        VStack {
+                            ForEach(0 ..< 20) { item in
+                                CourseRow()
+                            }
                         }
                     }
                 }
                 .background(Color("Background 1"))
+                .matchedGeometryEffect(id: "container\(selectedCourse!.id)", in: namespace)
                 .transition(
                     .asymmetric(
                         insertion: AnyTransition
