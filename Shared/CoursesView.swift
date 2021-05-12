@@ -29,7 +29,7 @@ struct CoursesView: View {
                                 .matchedGeometryEffect(id: course.id, in: namespace, isSource: !isShowingCourseItem)
                                 .frame(height: 200)
                                 .onTapGesture {
-                                    withAnimation(.spring()) {
+                                    withAnimation(.spring(response: 0.5, dampingFraction: 0.7, blendDuration: 0)) {
                                         isShowingCourseItem.toggle()
                                         selectedCourse = course
                                         isDisabled = true
@@ -43,42 +43,40 @@ struct CoursesView: View {
                 .padding(16)
                 .frame(maxWidth: .infinity)
             }
+            .zIndex(1)
             
             if selectedCourse != nil {
-                VStack {
-                    ScrollView {
-                        CourseItem(course: selectedCourse!)
-                            .matchedGeometryEffect(id: selectedCourse!.id, in: namespace)
-                            .frame(height: 300)
-                            .onTapGesture {
-                                withAnimation(.spring()) {
-                                    isShowingCourseItem.toggle()
-                                    selectedCourse = nil
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                        isDisabled = false
-                                    }
+                ZStack(alignment: .topTrailing) {
+                    VStack {
+                        ScrollView {
+                            CourseItem(course: selectedCourse!)
+                                .matchedGeometryEffect(id: selectedCourse!.id, in: namespace)
+                                .frame(height: 300)
+                            VStack {
+                                ForEach(0 ..< 20) { item in
+                                    CourseRow()
                                 }
-                            }
-                        VStack {
-                            ForEach(0 ..< 20) { item in
-                                CourseRow()
                             }
                         }
                     }
+                    .background(Color("Background 1"))
+                    .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+                    .matchedGeometryEffect(id: "container\(selectedCourse!.id)", in: namespace)
+                    .edgesIgnoringSafeArea(.all)
+                    
+                    CloseButton()
+                        .padding(.trailing, 16)
+                        .onTapGesture {
+                            withAnimation(.spring()) {
+                                isShowingCourseItem.toggle()
+                                selectedCourse = nil
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    isDisabled = false
+                                }
+                            }
+                        }
                 }
-                .background(Color("Background 1"))
-                .matchedGeometryEffect(id: "container\(selectedCourse!.id)", in: namespace)
-                .transition(
-                    .asymmetric(
-                        insertion: AnyTransition
-                            .opacity
-                            .animation(Animation.spring().delay(0.3)),
-                        removal: AnyTransition
-                            .opacity
-                            .animation(.spring())
-                    )
-                )
-                .edgesIgnoringSafeArea(.all)
+                .zIndex(2)
             }
         }
     }
