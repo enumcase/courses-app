@@ -28,7 +28,7 @@ struct CourseRow: View {
             }
             Spacer()
         }
-        .padding(.all, 12)
+        .padding([.leading, .trailing], 12)
     }
 }
 
