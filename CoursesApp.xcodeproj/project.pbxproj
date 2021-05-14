@@ -108,14 +108,13 @@
 		744A7BD926455B54007B433E /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				744A7BDA26455B54007B433E /* CoursesAppApp.swift */,
 				7492255E26492C820013F111 /* Items */,
 				7492255B26492C6B0013F111 /* Navigation */,
 				74C919E1264A63E400E9FBB5 /* Model */,
-				744A7BDA26455B54007B433E /* CoursesAppApp.swift */,
 				744A7BDC26455B57007B433E /* Assets.xcassets */,
 				744A7C02264562A9007B433E /* CoursesView.swift */,
 				74F54880264BD96D00557272 /* CourseFullDetail.swift */,
-				74F5487B264BD6A300557272 /* CloseButton.swift */,
 				7492256126492CFB0013F111 /* CourseList.swift */,
 			);
 			path = Shared;
@@ -162,6 +161,7 @@
 		7492255E26492C820013F111 /* Items */ = {
 			isa = PBXGroup;
 			children = (
+				74F5487B264BD6A300557272 /* CloseButton.swift */,
 				7492255626492B7E0013F111 /* CourseItem.swift */,
 				744A7BFD264560A6007B433E /* CourseRow.swift */,
 			);
