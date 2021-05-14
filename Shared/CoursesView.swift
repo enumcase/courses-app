@@ -15,11 +15,18 @@ struct CoursesView: View {
     @State private var selectedCourse: Course? = nil
     @State private var isDisabled = false
     
+    #if os(iOS)
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    #endif
+    
     var body: some View {
         ZStack {
             #if os(iOS)
-            content
-                .navigationBarHidden(true)
+            if horizontalSizeClass == .compact {
+                tabBar
+            } else {
+                sidebar
+            }
             fullContent
                 .background(VisualEffectBlur(blurStyle: .systemMaterial).edgesIgnoringSafeArea(.all))
             #else
@@ -35,13 +42,6 @@ struct CoursesView: View {
     var content: some View {
         ScrollView {
             VStack(spacing: 0) {
-                Text("Courses")
-                    .font(.largeTitle)
-                    .bold()
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 16)
-                    .padding(.top, 54)
-                
                 LazyVGrid(
                     columns: [
                         GridItem(.adaptive(minimum: 160), spacing: 16)
@@ -88,6 +88,7 @@ struct CoursesView: View {
             
         }
         .zIndex(1)
+        .navigationTitle("Courses")
     }
     
     @ViewBuilder
@@ -114,6 +115,83 @@ struct CoursesView: View {
         }
     }
     
+    var tabBar: some View {
+        TabView {
+            NavigationView {
+                content
+            }
+            .tabItem {
+                Image(systemName: "book.closed")
+                Text("Courses")
+            }
+            
+            NavigationView {
+                CourseList()
+            }
+            .tabItem {
+                Image(systemName: "list.bullet.rectangle")
+                Text("Tutorials")
+            }
+            
+            NavigationView {
+                CourseList()
+            }
+            .tabItem {
+                Image(systemName: "tv")
+                Text("Livestreams")
+            }
+            
+            NavigationView {
+                CourseList()
+            }
+            .tabItem {
+                Image(systemName: "mail.stack")
+                Text("Certificates")
+            }
+            
+            NavigationView {
+                CourseList()
+            }
+            .tabItem {
+                Image(systemName: "magnifyingglass")
+                Text("Search")
+            }
+        }
+    }
+    
+    @ViewBuilder
+    var sidebar: some View {
+        #if os(iOS)
+        NavigationView {
+            List {
+                NavigationLink(destination: CoursesView()) {
+                    Label("Courses", systemImage: "book.closed")
+                }
+                NavigationLink(destination: CoursesView()) {
+                    Label("Tutorials", systemImage: "list.bullet.rectangle")
+                }
+                NavigationLink(destination: CoursesView()) {
+                    Label("Livestreams", systemImage: "tv")
+                }
+                NavigationLink(destination: CoursesView()) {
+                    Label("Certificates", systemImage: "mail.stack")
+                }
+                NavigationLink(destination: CoursesView()) {
+                    Label("Search", systemImage: "magnifyingglass")
+                }
+            }
+            .listStyle(SidebarListStyle())
+            .navigationTitle("Learn")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Image(systemName: "person.crop.circle")
+                }
+            }
+            
+            content
+        }
+        #endif
+    }
 }
 
 struct CoursesView_Previews: PreviewProvider {
